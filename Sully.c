@@ -4,7 +4,6 @@
 
 int main() {
 	int x = 5;
-	--x;
 	char * buffer = 0;
 	long length;
 	FILE * f = fopen (__FILE__, "r");
@@ -47,4 +46,8 @@ int main() {
 		fclose (childF);
 		fclose (f);
 	}
+	char systemCall[100];
+	sprintf(systemCall, "clang -o %s %s", fileName, withExt);
+	printf("%s\n", systemCall);
+	system(systemCall);
 }
