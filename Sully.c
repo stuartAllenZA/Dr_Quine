@@ -4,6 +4,7 @@
 
 int main() {
 	int x = 5;
+	x--;
 	char * buffer = 0;
 	long length;
 	FILE * f = fopen (__FILE__, "r");
@@ -28,26 +29,14 @@ int main() {
 		fseek (f, 0, SEEK_SET);
 		buffer = malloc (length);
 		if (buffer) {
-			if (strcmp(buffer,"int x = 5") == 0)
-				buffer = "int x = 4";
-			else if (strcmp(buffer,"int x = 4") == 0)
-				buffer = "int x = 3";
-			else if (strcmp(buffer,"int x = 3") == 0)
-				buffer = "int x = 2";
-			else if (strcmp(buffer, "int x = 2") == 0)
-				buffer = "int x = 1";
-			else if (strcmp(buffer, "int x = 1") == 0)
-				buffer = "int x = 0";
-			else if (strcmp(buffer, "int x = 0") == 0)
-				exit(0);
 			fread (buffer, 1, length, f);
 			fputs(buffer, childF);
+			printf("printing:\n%s", buffer);
 		}
 		fclose (childF);
 		fclose (f);
 	}
 	char systemCall[100];
-	sprintf(systemCall, "clang -o %s %s", fileName, withExt);
-	printf("%s\n", systemCall);
+	sprintf(systemCall, "clang -o %s %s && ./%s", fileName, withExt, fileName);
 	system(systemCall);
 }
