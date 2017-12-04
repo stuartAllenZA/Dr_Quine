@@ -1,16 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <cstdlib>
 
 int main() {
 	int x = 5;
-	x--;
+	--x;
 	char * buffer = 0;
 	long length;
 	FILE * f = fopen (__FILE__, "r");
-	char * fileName = strcat("Sully_", itoa(x));
-	FILE * childF = fopen (fileName, "w");
+	
+	char *xAsA;
+	xAsA = (char*)malloc(sizeof(x)/4 + 1);
+	sprintf(xAsA, "%d", x);
+	
+	printf("begin\n");
+	char src[8];
+	char src2[10];
+	strcpy(src, "Sully_");
+	char * fileName = strcat(src, xAsA);
+	strcpy(src2, fileName);
+	char * withExt = strcat(src2, ".c");
+	FILE * childF = fopen (withExt, "w");
 
 	if (f)
 	{
